@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Patient Flow</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_registry">Registro</string>
+    <string name="current_date">Fecha actual: dd/mm/yyyy</string>
+    <string name="patient">Paciente</string>
+    <string name="weight">Peso</string>
+    <string name="systolic_pressure">Presión Sistólica</string>
+    <string name="diastolic_pressure">Presión Diastólica</string>
+    <string name="temperature">Temperatura</string>
+    <string name="checkbox_surgery">¿Cirugía actual?</string>
+    <string name="self_medication">Automedicación</string>
+</resources>
