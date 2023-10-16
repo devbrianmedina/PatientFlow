@@ -5,8 +5,16 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_queries"
+            android:icon="@drawable/ic_group"
+            android:title="@string/menu_queries" />
+        <item
             android:id="@+id/nav_registry"
             android:icon="@drawable/ic_edit_note"
             android:title="@string/menu_registry" />
+        <item
+            android:id="@+id/nav_patients"
+            android:icon="@drawable/ic_group"
+            android:title="@string/menu_patients" />
     </group>
 </menu>

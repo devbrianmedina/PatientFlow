@@ -12,6 +12,7 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="md_corner_radius">16dp</item>
     </style>
 
     <style name="Theme.PatientFlow.NoActionBar">

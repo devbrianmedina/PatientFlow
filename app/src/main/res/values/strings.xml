@@ -8,7 +8,7 @@
     <string name="action_settings">Settings</string>
 
     <string name="menu_registry">Registro</string>
-    <string name="current_date">Fecha actual: dd/mm/yyyy</string>
+    <string name="current_date">dd/mm/yyyy - hh:mm:ss</string>
     <string name="patient">Paciente</string>
     <string name="weight">Peso</string>
     <string name="systolic_pressure">Presión Sistólica</string>
@@ -16,4 +16,17 @@
     <string name="temperature">Temperatura</string>
     <string name="checkbox_surgery">¿Cirugía actual?</string>
     <string name="self_medication">Automedicación</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="from">Desde</string>
+    <string name="to">Hasta</string>
+    <string name="name">Nombre</string>
+    <string name="status">Estado</string>
+    <string name="surnames">Apellidos</string>
+    <string name="phone_number">Teléfono</string>
+    <string name="birthdate">Fecha de nacimiento</string>
+    <string name="take_photo">Tomar foto</string>
+    <string name="add_patient">Agregar paciente</string>
+    <string name="menu_patients">Pacientes</string>
+    <string name="menu_queries">Consultas</string>
 </resources>
