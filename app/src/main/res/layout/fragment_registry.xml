@@ -123,12 +123,25 @@
         android:layout_marginBottom="15dp"
         android:textSize="20sp"/>
 
-
-
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/self_medication"
+        app:endIconMode="custom"
+        app:endIconDrawable="@drawable/ic_medical"
+        android:layout_marginBottom="15dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:lines="3"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/illnesses_or_allergies"
         app:endIconMode="custom"
         app:endIconDrawable="@drawable/ic_medical"
         android:layout_marginBottom="15dp">

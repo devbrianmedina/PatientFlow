@@ -29,4 +29,6 @@
     <string name="add_patient">Agregar paciente</string>
     <string name="menu_patients">Pacientes</string>
     <string name="menu_queries">Consultas</string>
+    <string name="illnesses_or_allergies">Illnesses or allergies</string>
+    <string name="from_to">Desde / Hasta</string>
 </resources>

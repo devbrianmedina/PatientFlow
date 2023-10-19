@@ -9,6 +9,7 @@ android:orientation="vertical"
 android:layout_margin="10dp">
 
 <TextView
+    android:id="@+id/tvDateTimeQueries"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:text="@string/current_date"
@@ -22,37 +23,21 @@ android:layout_margin="10dp">
     android:layout_marginBottom="15dp"
     android:gravity="center">
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilFromQueries"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="@string/from"
+        android:hint="@string/from_to"
         android:layout_marginEnd="5dp"
         android:layout_weight="1">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="date" />
+            android:inputType="date"
+            android:clickable="true"
+            android:focusable="false"/>
     </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:text="/"
-        tools:ignore="HardcodedText" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="@string/to"
-        android:layout_marginStart="5dp"
-        android:layout_weight="1">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="date" />
-    </com.google.android.material.textfield.TextInputLayout>
     <Button
         android:id="@+id/btnAddRegistry"
         android:layout_width="wrap_content"
