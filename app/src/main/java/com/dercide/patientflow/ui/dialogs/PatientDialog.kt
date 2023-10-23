@@ -31,21 +31,17 @@ class PatientDialog {
                 val tilPhone: TextInputLayout = root.findViewById(R.id.tilPhoneAddPatient)
                 val imageUrl: String? = null
                 positiveButton {
-                    val dateFormat = SimpleDateFormat("dd-MM-yyyy")
-                    val date = dateFormat.parse(tilBirthdate.editText!!.text.toString())
-                    val timestamp = date?.time ?: 0
-                    val postData = JSONObject()
-                    postData.put("action", "insertPatient")
-                    postData.put("name", tilName.editText!!.text)
-                    postData.put("surnames", tilSurnames.editText!!.text)
-                    postData.put("birthdate", timestamp)
-                    postData.put("phone", tilPhone.editText!!.text)
-                    postData.put("photourl", imageUrl)
+                    val data = HashMap<String, String>()
+                    data["name"] = tilName.editText!!.text.toString()
+                    data["surnames"] = tilSurnames.editText!!.text.toString()
+                    data["birthdate"] = tilBirthdate.editText!!.text.toString()
+                    data["phone"] = tilPhone.editText!!.text.toString()
+                    data["photo"] = imageUrl.toString()
                     //TODO abrir dialog de load
-                    ApiHandler(context).sendRequest("patients", postData, {
-                        Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+                    ApiHandler(context).sendRequestPost(data, "/patients", {
+                        Toast.makeText(context, it, Toast.LENGTH_LONG).show()
                     }, {
-                        Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
                         //code here
                     })
                     //TODO cerrar dialog de load

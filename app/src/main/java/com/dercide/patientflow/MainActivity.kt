@@ -54,13 +54,11 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController!!, appBarConfiguration)
         navView.setupWithNavController(navController!!)
-        val postData = JSONObject()
-        postData.put("action", "getPatients")
-        ApiHandler(applicationContext).sendRequest("patients", postData, {
-            Toast.makeText(applicationContext, it.message, Toast.LENGTH_SHORT).show()
+        ApiHandler(applicationContext).sendRequestGet("/patients", "", {
+            Toast.makeText(applicationContext, it, Toast.LENGTH_SHORT).show()
         },
         {
-            Toast.makeText(applicationContext, it.message, Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, it, Toast.LENGTH_SHORT).show()
             //on error
         })
     }
