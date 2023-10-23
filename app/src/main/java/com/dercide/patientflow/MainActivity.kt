@@ -2,7 +2,9 @@ package com.dercide.patientflow
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
+import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
@@ -14,6 +16,10 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import com.dercide.patientflow.databinding.ActivityMainBinding
+import com.dercide.patientflow.models.PatientModel
+import com.dercide.patientflow.network.ApiHandler
+import com.google.gson.Gson
+import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
 
@@ -48,6 +54,15 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController!!, appBarConfiguration)
         navView.setupWithNavController(navController!!)
+        val postData = JSONObject()
+        postData.put("action", "getPatients")
+        ApiHandler(applicationContext).sendRequest("patients", postData, {
+            Toast.makeText(applicationContext, it.message, Toast.LENGTH_SHORT).show()
+        },
+        {
+            Toast.makeText(applicationContext, it.message, Toast.LENGTH_SHORT).show()
+            //on error
+        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

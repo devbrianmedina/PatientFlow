@@ -7,6 +7,7 @@
     android:gravity="center_horizontal">
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilNameAddPatient"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/name"
@@ -19,6 +20,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilSurnamesAddPatient"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/surnames"
@@ -31,6 +33,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilBirthdateAddPatient"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/birthdate"
@@ -43,6 +46,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilPhoneAddPatient"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/phone_number"
@@ -64,15 +68,17 @@
             android:layout_margin="5dp"
             android:gravity="center_vertical">
             <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_margin="5dp"
                 android:src="@mipmap/ic_launcher"/>
             <TextView
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/take_photo"
-                android:textSize="20sp"/>
+                android:textSize="20sp"
+                android:layout_marginStart="5dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
