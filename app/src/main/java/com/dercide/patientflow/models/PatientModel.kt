@@ -1,8 +1,8 @@
 package com.dercide.patientflow.models
 
-class PatientModel(id:Int?, name:String, surnames:String, birthdate:String, phone:String, photourl:String?) {
+class PatientModel(idPatient:Int?, name:String, surnames:String, birthdate:String, phone:String, photourl:String?) {
 
-    var id:Int?
+    var idPatient:Int?
     var name:String
     var surnames:String
     var birthdate:String
@@ -10,7 +10,7 @@ class PatientModel(id:Int?, name:String, surnames:String, birthdate:String, phon
     var photourl:String?
 
     init {
-        this.id = id
+        this.idPatient = idPatient
         this.name = name
         this.surnames = surnames
         this.birthdate = birthdate

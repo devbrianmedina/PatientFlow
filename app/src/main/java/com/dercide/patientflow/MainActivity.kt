@@ -18,6 +18,7 @@ import androidx.navigation.NavController
 import com.dercide.patientflow.databinding.ActivityMainBinding
 import com.dercide.patientflow.models.PatientModel
 import com.dercide.patientflow.network.ApiHandler
+import com.dercide.patientflow.utils.DataControllerUtil
 import com.google.gson.Gson
 import org.json.JSONObject
 
@@ -28,6 +29,7 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         var navController:NavController? = null
+        var patiets:ArrayList<PatientModel> = ArrayList()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,13 +56,7 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController!!, appBarConfiguration)
         navView.setupWithNavController(navController!!)
-        ApiHandler(applicationContext).sendRequestGet("/patients", "", {
-            Toast.makeText(applicationContext, it, Toast.LENGTH_SHORT).show()
-        },
-        {
-            Toast.makeText(applicationContext, it, Toast.LENGTH_SHORT).show()
-            //on error
-        })
+        DataControllerUtil.getPatients(applicationContext)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

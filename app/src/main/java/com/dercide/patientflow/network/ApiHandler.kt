@@ -4,16 +4,22 @@ import android.content.Context
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.dercide.patientflow.models.ApiResponse
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 class ApiHandler(context: Context) {
     val queue = Volley.newRequestQueue(context)
-    val url = "http://192.168.100.4/index.php"
+    val url = "http://192.168.3.86/index.php"
+    val gson = Gson()
 
-    fun sendRequestGet(endPoint: String, params:String = "", response: (String) -> Unit, error: (String) -> Unit) {
+    fun sendRequestGet(endPoint: String, params:String = "", response: (ApiResponse) -> Unit, error: (String) -> Unit) {
+        // Define un TypeToken para ApiResponse
+        val type = object : TypeToken<ApiResponse>() {}.type
         val stringRequest = StringRequest(
             Request.Method.GET, "$url$endPoint$params",
             {
-                response(it)
+                response(gson.fromJson(it, type))
             },
             {
                 val responseError = String(it.networkResponse.data)
