@@ -14,6 +14,7 @@
         android:layout_margin="5dp"
         android:gravity="center">
         <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civImagePatientCard"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:src="@mipmap/ic_launcher"/>
@@ -23,14 +24,16 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <TextView
+                android:id="@+id/tvNamePatientCard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/name"
                 android:textSize="20sp"/>
             <TextView
+                android:id="@+id/tvSurnamesPatientCard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/status"
+                android:text="@string/surnames"
                 android:textSize="18sp"/>
         </LinearLayout>
     </LinearLayout>

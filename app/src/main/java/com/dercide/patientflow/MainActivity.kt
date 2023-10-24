@@ -1,10 +1,7 @@
 package com.dercide.patientflow
 
-import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
-import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
@@ -16,11 +13,8 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import com.dercide.patientflow.databinding.ActivityMainBinding
-import com.dercide.patientflow.models.PatientModel
-import com.dercide.patientflow.network.ApiHandler
+import com.dercide.patientflow.models.Patient
 import com.dercide.patientflow.utils.DataControllerUtil
-import com.google.gson.Gson
-import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,7 +23,7 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         var navController:NavController? = null
-        var patiets:ArrayList<PatientModel> = ArrayList()
+        var patiets:ArrayList<Patient> = ArrayList()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

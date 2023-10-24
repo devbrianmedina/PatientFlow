@@ -1,6 +1,6 @@
 package com.dercide.patientflow.models
 
-class PatientModel(idPatient:Int?, name:String, surnames:String, birthdate:String, phone:String, photourl:String?) {
+class Patient(idPatient:Int?, name:String, surnames:String, birthdate:String, phone:String, photourl:String?) {
 
     var idPatient:Int?
     var name:String

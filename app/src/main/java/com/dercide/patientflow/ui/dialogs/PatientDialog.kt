@@ -9,7 +9,9 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.bottomsheets.BottomSheet
 import com.afollestad.materialdialogs.customview.customView
 import com.afollestad.materialdialogs.customview.getCustomView
+import com.dercide.patientflow.MainActivity
 import com.dercide.patientflow.R
+import com.dercide.patientflow.models.Patient
 import com.dercide.patientflow.network.ApiHandler
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -39,7 +41,8 @@ class PatientDialog {
                     data["photo"] = imageUrl.toString()
                     //TODO abrir dialog de load
                     ApiHandler(context).sendRequestPost(data, "/patients", {
-                        Toast.makeText(context, it, Toast.LENGTH_LONG).show()
+                        Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
+                        MainActivity.patiets.add(Patient("${it.data.first()}".toInt(), data["name"]!!, data["surnames"]!!, data["birthdate"]!!, data["phone"]!!, imageUrl))
                     }, {
                         Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
                         //code here

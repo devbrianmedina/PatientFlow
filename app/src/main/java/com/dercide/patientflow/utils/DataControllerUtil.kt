@@ -3,7 +3,7 @@ package com.dercide.patientflow.utils
 import android.content.Context
 import android.widget.Toast
 import com.dercide.patientflow.MainActivity
-import com.dercide.patientflow.models.PatientModel
+import com.dercide.patientflow.models.Patient
 import com.dercide.patientflow.network.ApiHandler
 
 class DataControllerUtil {
@@ -14,7 +14,7 @@ class DataControllerUtil {
                 (it.data as List<List<String>>).first().first()
                 MainActivity.patiets.clear()
                 for (element: List<String> in it.data) {
-                    MainActivity.patiets.add(PatientModel(element[0].toInt(), element[1], element[2], element[3], element[4], if(element[5] == "null") {null} else {element[5]}))
+                    MainActivity.patiets.add(Patient(element[0].toInt(), element[1], element[2], element[3], element[4], if(element[5] == "null") {null} else {element[5]}))
                 }
             },
                 {

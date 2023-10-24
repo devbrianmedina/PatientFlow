@@ -10,7 +10,7 @@ import com.google.gson.reflect.TypeToken
 
 class ApiHandler(context: Context) {
     val queue = Volley.newRequestQueue(context)
-    val url = "http://192.168.3.86/index.php"
+    val url = "http://192.168.100.4/index.php"
     val gson = Gson()
 
     fun sendRequestGet(endPoint: String, params:String = "", response: (ApiResponse) -> Unit, error: (String) -> Unit) {
@@ -31,11 +31,13 @@ class ApiHandler(context: Context) {
         queue.add(stringRequest)
     }
 
-    fun sendRequestPost(data: HashMap<String, String>, endPoint: String, response: (String) -> Unit, error: (String) -> Unit) {
+    fun sendRequestPost(data: HashMap<String, String>, endPoint: String, response: (ApiResponse) -> Unit, error: (String) -> Unit) {
+        // Define un TypeToken para ApiResponse
+        val type = object : TypeToken<ApiResponse>() {}.type
         val stringRequest = object : StringRequest(
             Request.Method.POST, "$url$endPoint",
             {
-                response(it)
+                response(gson.fromJson(it, type))
             },
             {
                 val responseError = String(it.networkResponse.data)
