@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.dercide.patientflow.MainActivity
@@ -26,13 +27,12 @@ class RegistryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val addPatient:Button = view.findViewById(R.id.btnAddPatient)
+        val addPatient:Button = view.findViewById(R.id.btnAddPatientRegistry)
         addPatient.setOnClickListener {
             PatientDialog.add(requireActivity()) {
             }
         }
 
-        val tilPatient:TextInputLayout = view.findViewById(R.id.tilPatientRegistry)
         val actvPatient:AutoCompleteTextView = view.findViewById(R.id.actvPatientRegistry)
         val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, MainActivity.patiets.map { "${it.name} ${it.surnames} #${it.idPatient}" }.toList())
         actvPatient.setAdapter(adapter)
@@ -40,7 +40,18 @@ class RegistryFragment : Fragment() {
         actvPatient.setOnItemClickListener { parent, _, position, id ->
             val selectedItem = parent.adapter.getItem(position) as String
             idP = selectedItem.split(" ").last().replace("#", "").toInt()
-            Toast.makeText(requireContext(), "$idP", Toast.LENGTH_SHORT).show()
+            actvPatient.setText(selectedItem.replaceAfterLast("#", "").replace(" #", ""))
+            Toast.makeText(requireContext(), "Paciente #$idP seleccionado", Toast.LENGTH_SHORT).show()
         }
+
+        val tilWeight:TextInputLayout = view.findViewById(R.id.tilWeightRegistry)
+        val tilSystolicPressure:TextInputLayout = view.findViewById(R.id.tilSystolicPressureRegistry)
+        val tilDiastolicPressure:TextInputLayout = view.findViewById(R.id.tilDiastolicPressureRegistry)
+        val tilTemperature:TextInputLayout = view.findViewById(R.id.tilTemperatureRegistry)
+        val cbSurgery:CheckBox = view.findViewById(R.id.cbSurgeryRegistry)
+        val tilSelfMedication:TextInputLayout = view.findViewById(R.id.tilSelfMedicationRegistry)
+        val tilIllnessesOrAllergies:TextInputLayout = view.findViewById(R.id.tilIllnessesOrAllergiesRegistry)
+
+
     }
 }

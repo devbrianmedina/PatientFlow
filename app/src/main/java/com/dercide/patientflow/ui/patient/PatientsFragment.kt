@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dercide.patientflow.MainActivity
 import com.dercide.patientflow.R
 import com.dercide.patientflow.adapters.PatientAdapter
+import com.dercide.patientflow.ui.dialogs.PatientDialog
 
 class PatientsFragment : Fragment() {
 
@@ -26,7 +27,10 @@ class PatientsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val rvPatients:RecyclerView = view.findViewById(R.id.rvPatientsFragmentPatients)
 
-        val patientsAdapter = PatientAdapter(MainActivity.patiets)
+        val patientsAdapter = PatientAdapter(MainActivity.patiets) {
+            PatientDialog.add(requireActivity(), it) {
+            }
+        }
         val linearLayoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
         rvPatients.layoutManager = linearLayoutManager

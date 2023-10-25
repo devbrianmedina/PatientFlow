@@ -14,6 +14,7 @@ class DataControllerUtil {
                 (it.data as List<List<String>>).first().first()
                 MainActivity.patiets.clear()
                 for (element: List<String> in it.data) {
+
                     MainActivity.patiets.add(Patient(element[0].toInt(), element[1], element[2], element[3], element[4], if(element[5] == "null") {null} else {element[5]}))
                 }
             },

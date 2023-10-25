@@ -9,7 +9,7 @@ import com.dercide.patientflow.R
 import com.dercide.patientflow.models.Patient
 import de.hdodenhof.circleimageview.CircleImageView
 
-class PatientAdapter(patients:ArrayList<Patient>) : RecyclerView.Adapter<PatientAdapter.PatientViewHolder>() {
+class PatientAdapter(patients:ArrayList<Patient>, val onItemClick: (Patient) -> Unit) : RecyclerView.Adapter<PatientAdapter.PatientViewHolder>() {
 
     var patients: ArrayList<Patient>
     init {
@@ -39,5 +39,8 @@ class PatientAdapter(patients:ArrayList<Patient>) : RecyclerView.Adapter<Patient
     override fun onBindViewHolder(holder: PatientAdapter.PatientViewHolder, position: Int) {
         holder.name.text = patients[position].name
         holder.surnames.text = patients[position].surnames
+        holder.itemView.setOnClickListener {
+            onItemClick(patients[position])
+        }
     }
 }

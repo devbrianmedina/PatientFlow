@@ -31,4 +31,5 @@
     <string name="menu_queries">Consultas</string>
     <string name="illnesses_or_allergies">Illnesses or allergies</string>
     <string name="from_to">Desde / Hasta</string>
+    <string name="update_patient">Actualizar paciente</string>
 </resources>
