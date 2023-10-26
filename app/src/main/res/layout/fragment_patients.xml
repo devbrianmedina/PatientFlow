@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".ui.patient.PatientsFragment"
     android:orientation="vertical"
-    android:layout_margin="10dp">
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="5dp">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvPatientsFragmentPatients"

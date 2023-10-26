@@ -50,23 +50,29 @@ class PatientDialog {
                     data["phone"] = tilPhone.editText!!.text.toString()
                     data["photo"] = imageUrl.toString()
                     //TODO abrir dialog de load
-                    if(patient == null) {
+                    if(patient == null) { //agregar nuevo paciente
                         ApiHandler(context).sendRequestPost(data, "/patients", {
                             Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
                             val idPatient = "${it.data.first()}".toInt()
                             if(idPatient > 0) MainActivity.patiets.add(Patient(idPatient, data["name"]!!, data["surnames"]!!, data["birthdate"]!!, data["phone"]!!, imageUrl))
                         }, {
                             Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
-                            //code here
                         })
-                    } else {
-                        ApiHandler(context).sendRequestPost(data, "/patients/${patient.idPatient}", {
+                    } else { //actualizar paciente
+                        ApiHandler(context).sendRequestPut(data, "/patients/${patient.idPatient}", {
                             Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
                             val res = "${it.data.first()}".toInt()
-                            //if(res > 0) MainActivity.patiets.add(Patient(idPatient, data["name"]!!, data["surnames"]!!, data["birthdate"]!!, data["phone"]!!, imageUrl))
+                            if(res == 1) {
+                                MainActivity.patiets.forEachIndexed { index, element ->
+                                    if(element.idPatient == patient.idPatient) {
+                                        MainActivity.patiets[index] = Patient(patient.idPatient, data["name"]!!, data["surnames"]!!, data["birthdate"]!!, data["phone"]!!, imageUrl)
+                                        callback(true)
+                                        return@forEachIndexed
+                                    }
+                                }
+                            }
                         }, {
                             Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
-                            //code here
                         })
                     }
                     //TODO cerrar dialog de load

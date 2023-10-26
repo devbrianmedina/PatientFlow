@@ -23,12 +23,14 @@ class PatientsFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_patients, container, false)
     }
 
+    lateinit var patientsAdapter: PatientAdapter
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val rvPatients:RecyclerView = view.findViewById(R.id.rvPatientsFragmentPatients)
 
-        val patientsAdapter = PatientAdapter(MainActivity.patiets) {
+        patientsAdapter = PatientAdapter(MainActivity.patiets) {
             PatientDialog.add(requireActivity(), it) {
+                patientsAdapter.notifyDataSetChanged()
             }
         }
         val linearLayoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
