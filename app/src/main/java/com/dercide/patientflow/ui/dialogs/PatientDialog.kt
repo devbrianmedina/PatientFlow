@@ -19,6 +19,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import org.json.JSONObject
 import java.text.SimpleDateFormat
+import java.util.Locale
 
 class PatientDialog {
     companion object {
@@ -32,6 +33,13 @@ class PatientDialog {
                 val tilBirthdate: TextInputLayout = root.findViewById(R.id.tilBirthdateAddPatient)
                 val tilPhone: TextInputLayout = root.findViewById(R.id.tilPhoneAddPatient)
                 var imageUrl: String? = null
+
+                tilBirthdate.editText!!.setOnClickListener {
+                    DateTimeDialog.datePicker(context) {
+                        val dateFormat = SimpleDateFormat("yyyy/MM/dd", Locale.getDefault())
+                        tilBirthdate.editText!!.setText(dateFormat.format(it.time))
+                    }
+                }
 
                 //establecer datos si se va a actualizar (si patient no es null)
                 if(patient != null) {
