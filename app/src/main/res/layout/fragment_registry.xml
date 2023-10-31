@@ -165,6 +165,13 @@
                 android:inputType="textMultiLine"
                 android:lines="3"/>
         </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/btnRegisterRegistry"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/menu_registry"
+            style="@style/Widget.MaterialComponents.Button" />
     </LinearLayout>
 
 </ScrollView>

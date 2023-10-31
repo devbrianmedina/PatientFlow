@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import com.dercide.patientflow.databinding.ActivityMainBinding
 import com.dercide.patientflow.models.Patient
+import com.dercide.patientflow.models.Query
 import com.dercide.patientflow.utils.DataControllerUtil
 
 class MainActivity : AppCompatActivity() {
@@ -24,6 +25,7 @@ class MainActivity : AppCompatActivity() {
     companion object {
         var navController:NavController? = null
         var patiets:ArrayList<Patient> = ArrayList()
+        var queries:ArrayList<Query> = ArrayList()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,6 +53,7 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController!!, appBarConfiguration)
         navView.setupWithNavController(navController!!)
         DataControllerUtil.getPatients(applicationContext)
+        DataControllerUtil.getQueries(applicationContext, "?get=today")
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

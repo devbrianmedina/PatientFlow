@@ -19,9 +19,11 @@ class ApiHandler(context: Context) {
         val stringRequest = StringRequest(
             Request.Method.GET, "$url$endPoint$params",
             {
+                println("### $it")
                 response(gson.fromJson(it, type))
             },
             {
+                println("### $it")
                 val responseError = String(it.networkResponse.data)
                 error(responseError)
             }
@@ -37,9 +39,11 @@ class ApiHandler(context: Context) {
         val stringRequest = object : StringRequest(
             Request.Method.POST, "$url$endPoint",
             {
+                println("### $it")
                 response(gson.fromJson(it, type))
             },
             {
+                println("### $it")
                 val responseError = String(it.networkResponse.data)
                 error(responseError)
             }

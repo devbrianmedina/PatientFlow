@@ -11,10 +11,17 @@ import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.dercide.patientflow.MainActivity
 import com.dercide.patientflow.R
+import com.dercide.patientflow.adapters.PatientAdapter
+import com.dercide.patientflow.adapters.QueryAdapter
 import com.dercide.patientflow.ui.dialogs.DateTimeDialog
+import com.dercide.patientflow.ui.dialogs.PatientDialog
 import com.google.android.material.textfield.TextInputLayout
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -32,6 +39,9 @@ class QueriesFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_queries, container, false)
     }
 
+    companion object {
+        lateinit var queriesAdapter: QueryAdapter
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val addRegistry: Button = view.findViewById(R.id.btnAddRegistry)
@@ -53,6 +63,16 @@ class QueriesFragment : Fragment() {
                 updateQueries()
             }
         }
+
+        //recycler
+        val rvQueries: RecyclerView = view.findViewById(R.id.rvQueries)
+
+        queriesAdapter = QueryAdapter(MainActivity.queries, {}, {})
+        val linearLayoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+
+        rvQueries.layoutManager = linearLayoutManager
+        rvQueries.adapter = queriesAdapter
+
     }
 
     fun updateQueries() {

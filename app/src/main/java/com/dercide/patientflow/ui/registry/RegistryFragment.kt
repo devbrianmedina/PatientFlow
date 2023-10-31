@@ -12,6 +12,8 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.dercide.patientflow.MainActivity
 import com.dercide.patientflow.R
+import com.dercide.patientflow.models.Query
+import com.dercide.patientflow.network.ApiHandler
 import com.dercide.patientflow.ui.dialogs.PatientDialog
 import com.google.android.material.textfield.TextInputLayout
 
@@ -51,7 +53,29 @@ class RegistryFragment : Fragment() {
         val cbSurgery:CheckBox = view.findViewById(R.id.cbSurgeryRegistry)
         val tilSelfMedication:TextInputLayout = view.findViewById(R.id.tilSelfMedicationRegistry)
         val tilIllnessesOrAllergies:TextInputLayout = view.findViewById(R.id.tilIllnessesOrAllergiesRegistry)
+        val btnRegister:Button = view.findViewById(R.id.btnRegisterRegistry)
 
+        btnRegister.setOnClickListener {
+            if(idP != -1) {
+                val data = HashMap<String, String>()
+                data["idPatient"] = idP.toString()
+                data["weight"] = tilWeight.editText!!.text.toString()
+                data["pressure"] = "${tilSystolicPressure.editText!!.text}/${tilDiastolicPressure.editText!!.text}"
+                data["temperature"] = tilTemperature.editText!!.text.toString()
+                data["currentsurgery"] = cbSurgery.isChecked.toString()
+                data["selfmedication"] = tilSelfMedication.editText!!.text.toString()
+                data["diseasesandallergies"] = tilIllnessesOrAllergies.editText!!.text.toString()
 
+                ApiHandler(requireContext()).sendRequestPost(data, "/queries", {
+                    Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
+                    val idQuerie = "${it.data.first()}".toInt()
+                    if(idQuerie > 0) MainActivity.queries.add(Query(idQuerie, it.data.last().toString(), data["weight"]!!.toDouble(), data["pressure"]!!, data["temperature"]!!.toDouble(), data["currentsurgery"]!!.toBoolean(), data["selfmedication"]!!, data["diseasesandallergies"]!!, 1, null, data["idPatient"]!!.toInt()))
+                }, {
+                    Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+                })
+            } else {
+                Toast.makeText(requireContext(), "Selecciona un paciente", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }
