@@ -1,5 +1,6 @@
 package com.dercide.patientflow.ui.queries
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -18,6 +19,7 @@ import com.dercide.patientflow.MainActivity
 import com.dercide.patientflow.R
 import com.dercide.patientflow.adapters.PatientAdapter
 import com.dercide.patientflow.adapters.QueryAdapter
+import com.dercide.patientflow.ui.attend.AttendActivity
 import com.dercide.patientflow.ui.dialogs.DateTimeDialog
 import com.dercide.patientflow.ui.dialogs.PatientDialog
 import com.dercide.patientflow.utils.DataControllerUtil
@@ -93,7 +95,11 @@ class QueriesFragment : Fragment() {
         //recycler
         val rvQueries: RecyclerView = view.findViewById(R.id.rvQueries)
 
-        queriesAdapter = QueryAdapter(MainActivity.queries, {}, {})
+        queriesAdapter = QueryAdapter(MainActivity.queries, {}, {
+            val intent:Intent = Intent(requireContext(), AttendActivity::class.java)
+            intent.putExtra("idQuery", it.idQueries)
+            startActivity(intent)
+        })
         val linearLayoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
         rvQueries.layoutManager = linearLayoutManager

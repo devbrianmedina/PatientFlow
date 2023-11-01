@@ -1,6 +1,8 @@
 package com.dercide.patientflow.ui.registry
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +10,7 @@ import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.CheckBox
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.dercide.patientflow.MainActivity
@@ -16,9 +19,15 @@ import com.dercide.patientflow.models.Query
 import com.dercide.patientflow.network.ApiHandler
 import com.dercide.patientflow.ui.dialogs.PatientDialog
 import com.google.android.material.textfield.TextInputLayout
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 
 class RegistryFragment : Fragment() {
+
+    private val handler = Handler(Looper.getMainLooper())
+    lateinit var tvDateTime: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,6 +38,10 @@ class RegistryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        tvDateTime = view.findViewById(R.id.tvDateTimeRegistry)
+        handler.post(updateDateTime)
+
         val addPatient:Button = view.findViewById(R.id.btnAddPatientRegistry)
         addPatient.setOnClickListener {
             PatientDialog.add(requireActivity(), childFragmentManager) {
@@ -77,5 +90,20 @@ class RegistryFragment : Fragment() {
                 Toast.makeText(requireContext(), "Selecciona un paciente", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private val updateDateTime = object : Runnable {
+        override fun run() {
+            val currentDateAndTime = SimpleDateFormat("dd/MM/yyyy - HH:mm:ss", Locale.getDefault()).format(
+                Date()
+            )
+            tvDateTime.text = currentDateAndTime
+            handler.postDelayed(this, 1000)
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        handler.removeCallbacks(updateDateTime)
     }
 }

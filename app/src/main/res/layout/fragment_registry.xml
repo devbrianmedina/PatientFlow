@@ -13,6 +13,7 @@
         android:orientation="vertical"
         android:layout_margin="10dp">
         <TextView
+            android:id="@+id/tvDateTimeRegistry"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/current_date"
@@ -171,6 +172,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/menu_registry"
+            android:layout_marginBottom="50dp"
             style="@style/Widget.MaterialComponents.Button" />
     </LinearLayout>
 
