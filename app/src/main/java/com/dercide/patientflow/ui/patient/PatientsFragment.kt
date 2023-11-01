@@ -29,7 +29,7 @@ class PatientsFragment : Fragment() {
         val rvPatients:RecyclerView = view.findViewById(R.id.rvPatientsFragmentPatients)
 
         patientsAdapter = PatientAdapter(MainActivity.patiets) {
-            PatientDialog.add(requireActivity(), it) {
+            PatientDialog.add(requireActivity(), childFragmentManager, it) {
                 patientsAdapter.notifyDataSetChanged()
             }
         }

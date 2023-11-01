@@ -11,6 +11,7 @@ import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.util.Pair
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dercide.patientflow.MainActivity
@@ -19,13 +20,24 @@ import com.dercide.patientflow.adapters.PatientAdapter
 import com.dercide.patientflow.adapters.QueryAdapter
 import com.dercide.patientflow.ui.dialogs.DateTimeDialog
 import com.dercide.patientflow.ui.dialogs.PatientDialog
+import com.dercide.patientflow.utils.DataControllerUtil
+import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.DateValidatorPointBackward
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
+import java.net.URLEncoder
 import java.text.SimpleDateFormat
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.ZoneOffset
+import java.time.ZonedDateTime
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
+import java.util.TimeZone
 
 class QueriesFragment : Fragment() {
 
@@ -55,13 +67,27 @@ class QueriesFragment : Fragment() {
 
         val tilFrom:TextInputLayout = view.findViewById(R.id.tilFromQueries)
         tilFrom.editText?.setOnClickListener {
-            DateTimeDialog.datePicker(requireActivity()) {
-                val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-                DateTimeDialog.datePicker(requireActivity()) { it2 ->
-                    tilFrom.editText?.setText("${dateFormat.format(it.time)} / ${dateFormat.format(it2.time)}")
-                }
-                updateQueries()
+            val constraintsBuilderRange = CalendarConstraints.Builder()
+                .setValidator(DateValidatorPointBackward.now());
+            val dateRangePicker =
+                MaterialDatePicker.Builder.dateRangePicker()
+                    .setTitleText("Selecciona un rango")
+                    .setSelection(
+                        Pair(
+                            MaterialDatePicker.todayInUtcMilliseconds(),
+                            MaterialDatePicker.todayInUtcMilliseconds()
+                        )
+                    )
+                    .setCalendarConstraints(constraintsBuilderRange.build())
+                    .build()
+
+            dateRangePicker.addOnPositiveButtonClickListener {
+                val dateFormat = SimpleDateFormat("yyyy/MM/dd", Locale.getDefault())
+                dateFormat.timeZone = TimeZone.getTimeZone("UTC")
+                tilFrom.editText?.setText("${dateFormat.format(it.first)} - ${dateFormat.format(it.second)}")
+                DataControllerUtil.getQueries(requireContext(), "?get=range&date=${URLEncoder.encode("${dateFormat.format(it.first)} 00:00:00", "UTF-8")}&date2=${URLEncoder.encode("${dateFormat.format(it.second)} 23:59:59", "UTF-8")}")
             }
+            dateRangePicker.show(childFragmentManager, "tag")
         }
 
         //recycler
@@ -73,9 +99,6 @@ class QueriesFragment : Fragment() {
         rvQueries.layoutManager = linearLayoutManager
         rvQueries.adapter = queriesAdapter
 
-    }
-
-    fun updateQueries() {
     }
 
     private val updateDateTime = object : Runnable {

@@ -4,7 +4,9 @@ import android.app.Activity
 import android.graphics.Color
 import android.view.View
 import android.widget.Toast
+import androidx.core.util.Pair
 import androidx.core.view.setPadding
+import androidx.fragment.app.FragmentManager
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.bottomsheets.BottomSheet
 import com.afollestad.materialdialogs.customview.customView
@@ -13,17 +15,23 @@ import com.dercide.patientflow.MainActivity
 import com.dercide.patientflow.R
 import com.dercide.patientflow.models.Patient
 import com.dercide.patientflow.network.ApiHandler
+import com.dercide.patientflow.utils.DataControllerUtil
+import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.DateValidatorPointBackward
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import org.json.JSONObject
+import java.net.URLEncoder
 import java.text.SimpleDateFormat
 import java.util.Locale
+import java.util.TimeZone
 
 class PatientDialog {
     companion object {
-        fun add(context: Activity, patient: Patient? = null, callback: (Boolean) -> Unit) {
+        fun add(context: Activity, fragmentManager:FragmentManager, patient: Patient? = null, callback: (Boolean) -> Unit) {
             MaterialDialog(context).show {
                 title(res = if(patient == null) { R.string.add_patient } else { R.string.update_patient } )
                 customView(viewRes = R.layout.add_patient_view, scrollable = true)
@@ -35,10 +43,24 @@ class PatientDialog {
                 var imageUrl: String? = null
 
                 tilBirthdate.editText!!.setOnClickListener {
-                    DateTimeDialog.datePicker(context) {
+                    /*DateTimeDialog.datePicker(context) {
                         val dateFormat = SimpleDateFormat("yyyy/MM/dd", Locale.getDefault())
-                        tilBirthdate.editText!!.setText(dateFormat.format(it.time))
+                    }*/
+                    val constraintsBuilderRange = CalendarConstraints.Builder()
+                        .setValidator(DateValidatorPointBackward.now());
+                    val dateRangePicker =
+                        MaterialDatePicker.Builder.datePicker()
+                            .setTitleText("Selecciona un rango")
+                            .setCalendarConstraints(constraintsBuilderRange.build())
+                            .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+                            .build()
+
+                    dateRangePicker.addOnPositiveButtonClickListener {
+                        val dateFormat = SimpleDateFormat("yyyy/MM/dd", Locale.getDefault())
+                        dateFormat.timeZone = TimeZone.getTimeZone("UTC")
+                        tilBirthdate.editText!!.setText(dateFormat.format(it))
                     }
+                    dateRangePicker.show(fragmentManager, "tag")
                 }
 
                 //establecer datos si se va a actualizar (si patient no es null)

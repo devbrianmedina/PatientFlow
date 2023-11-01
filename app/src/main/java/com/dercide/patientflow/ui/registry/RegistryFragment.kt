@@ -31,7 +31,7 @@ class RegistryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val addPatient:Button = view.findViewById(R.id.btnAddPatientRegistry)
         addPatient.setOnClickListener {
-            PatientDialog.add(requireActivity()) {
+            PatientDialog.add(requireActivity(), childFragmentManager) {
             }
         }
 

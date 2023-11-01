@@ -7,10 +7,11 @@ import com.android.volley.toolbox.Volley
 import com.dercide.patientflow.models.ApiResponse
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import java.net.URLEncoder
 
 class ApiHandler(context: Context) {
     val queue = Volley.newRequestQueue(context)
-    val url = "http://192.168.100.4/index.php"
+    val url = "https://patientflow.dercide.com/index.php"
     val gson = Gson()
 
     fun sendRequestGet(endPoint: String, params:String = "", response: (ApiResponse) -> Unit, error: (String) -> Unit) {
