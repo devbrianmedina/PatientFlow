@@ -2,12 +2,14 @@ package com.dercide.patientflow.ui.attend
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import com.dercide.patientflow.MainActivity
 import com.dercide.patientflow.R
 import com.dercide.patientflow.models.Patient
+import com.dercide.patientflow.models.Prescription
 import com.dercide.patientflow.models.Query
 import com.dercide.patientflow.network.ApiHandler
 import com.dercide.patientflow.ui.queries.QueriesFragment
@@ -51,6 +53,15 @@ class AttendActivity : AppCompatActivity() {
         val tilMedicines:TextInputLayout = findViewById(R.id.tilMedicinesAttend)
         val btnAlta:Button = findViewById(R.id.btnAltaAttend)
 
+        if(query.prescription_idprescription != null) {
+            val prescription:Prescription? = MainActivity.prescriptions.firstOrNull { it.idPrescription == query.prescription_idprescription }
+            tilRecommendations.editText!!.setText(prescription?.observations)
+            tilRecommendations.editText!!.isEnabled = false
+            tilMedicines.editText!!.setText(prescription?.medicines)
+            tilMedicines.editText!!.isEnabled = false
+            btnAlta.visibility = View.GONE
+        }
+
         btnAlta.setOnClickListener {
             val data = HashMap<String, String>()
             data["observations"] = tilRecommendations.editText!!.text.toString()
@@ -63,6 +74,7 @@ class AttendActivity : AppCompatActivity() {
                 if(idPrescription != -1) { //MainActivity.queries.add(Query(idQuerie, it.data.last().toString(), data["weight"]!!.toDouble(), data["pressure"]!!, data["temperature"]!!.toDouble(), data["currentsurgery"]!!.toBoolean(), data["selfmedication"]!!, data["diseasesandallergies"]!!, 1, null, data["idPatient"]!!.toInt()))
                     query.status = 3
                     QueriesFragment.queriesAdapter?.notifyDataSetChanged()
+                    MainActivity.prescriptions.add(Prescription(idPrescription, data["observations"]!!, data["medicines"]!!, SimpleDateFormat("yyyy-MM-dd").format(Date())))
                     finish()
                 }
             }, {

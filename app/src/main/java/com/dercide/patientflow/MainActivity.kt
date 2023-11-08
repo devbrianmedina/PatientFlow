@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import com.dercide.patientflow.databinding.ActivityMainBinding
 import com.dercide.patientflow.models.Patient
+import com.dercide.patientflow.models.Prescription
 import com.dercide.patientflow.models.Query
 import com.dercide.patientflow.utils.DataControllerUtil
 
@@ -26,6 +27,7 @@ class MainActivity : AppCompatActivity() {
         var navController:NavController? = null
         var patiets:ArrayList<Patient> = ArrayList()
         var queries:ArrayList<Query> = ArrayList()
+        var prescriptions:ArrayList<Prescription> = ArrayList()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
