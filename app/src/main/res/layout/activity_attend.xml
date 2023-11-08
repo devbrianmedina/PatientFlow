@@ -190,6 +190,7 @@
     </LinearLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilRecommendationsAttend"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/recommendations"
@@ -205,6 +206,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilMedicinesAttend"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/medicines"
@@ -220,6 +222,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
+        android:id="@+id/btnAltaAttend"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Dar alta"/>

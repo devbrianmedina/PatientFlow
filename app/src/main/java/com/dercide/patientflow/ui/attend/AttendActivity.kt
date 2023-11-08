@@ -2,11 +2,16 @@ package com.dercide.patientflow.ui.attend
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import com.dercide.patientflow.MainActivity
 import com.dercide.patientflow.R
 import com.dercide.patientflow.models.Patient
 import com.dercide.patientflow.models.Query
+import com.dercide.patientflow.network.ApiHandler
+import com.dercide.patientflow.ui.queries.QueriesFragment
+import com.google.android.material.textfield.TextInputLayout
 import java.text.SimpleDateFormat
 import java.util.Date
 import kotlin.system.exitProcess
@@ -41,6 +46,29 @@ class AttendActivity : AppCompatActivity() {
         tvSurgery.text = if(query.currentsurgery) { "Si" } else { "No" }
         tvSelfMedication.text = query.selfmedication
         tvIllnessesOrAllergies.text = query.diseasesandallergies
+
+        val tilRecommendations:TextInputLayout = findViewById(R.id.tilRecommendationsAttend)
+        val tilMedicines:TextInputLayout = findViewById(R.id.tilMedicinesAttend)
+        val btnAlta:Button = findViewById(R.id.btnAltaAttend)
+
+        btnAlta.setOnClickListener {
+            val data = HashMap<String, String>()
+            data["observations"] = tilRecommendations.editText!!.text.toString()
+            data["medicines"] = tilMedicines.editText!!.text.toString()
+            data["query_id"] = "${query.idQueries}"
+
+            ApiHandler(applicationContext).sendRequestPost(data, "/prescriptions", {
+                Toast.makeText(applicationContext, it.message, Toast.LENGTH_LONG).show()
+                val idPrescription = "${it.data.first()}".toInt()
+                if(idPrescription != -1) { //MainActivity.queries.add(Query(idQuerie, it.data.last().toString(), data["weight"]!!.toDouble(), data["pressure"]!!, data["temperature"]!!.toDouble(), data["currentsurgery"]!!.toBoolean(), data["selfmedication"]!!, data["diseasesandallergies"]!!, 1, null, data["idPatient"]!!.toInt()))
+                    query.status = 3
+                    QueriesFragment.queriesAdapter?.notifyDataSetChanged()
+                    finish()
+                }
+            }, {
+                Toast.makeText(applicationContext, it, Toast.LENGTH_SHORT).show()
+            })
+        }
     }
 
     fun calcularEdad(fechaNacimiento: String): Int {
