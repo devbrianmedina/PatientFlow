@@ -56,6 +56,7 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController!!)
         DataControllerUtil.getPatients(applicationContext)
         DataControllerUtil.getQueries(applicationContext, "?get=today")
+        DataControllerUtil.getPrescriptions(applicationContext, "?get=today")
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

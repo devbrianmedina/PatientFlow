@@ -19,6 +19,8 @@ import com.dercide.patientflow.MainActivity
 import com.dercide.patientflow.R
 import com.dercide.patientflow.adapters.PatientAdapter
 import com.dercide.patientflow.adapters.QueryAdapter
+import com.dercide.patientflow.models.Patient
+import com.dercide.patientflow.network.ApiHandler
 import com.dercide.patientflow.ui.attend.AttendActivity
 import com.dercide.patientflow.ui.dialogs.DateTimeDialog
 import com.dercide.patientflow.ui.dialogs.PatientDialog
@@ -88,6 +90,7 @@ class QueriesFragment : Fragment() {
                 dateFormat.timeZone = TimeZone.getTimeZone("UTC")
                 tilFrom.editText?.setText("${dateFormat.format(it.first)} - ${dateFormat.format(it.second)}")
                 DataControllerUtil.getQueries(requireContext(), "?get=range&date=${URLEncoder.encode("${dateFormat.format(it.first)} 00:00:00", "UTF-8")}&date2=${URLEncoder.encode("${dateFormat.format(it.second)} 23:59:59", "UTF-8")}")
+                DataControllerUtil.getPrescriptions(requireContext(), "?get=range&date=${URLEncoder.encode("${dateFormat.format(it.first)} 00:00:00", "UTF-8")}&date2=${URLEncoder.encode("${dateFormat.format(it.second)} 23:59:59", "UTF-8")}")
             }
             dateRangePicker.show(childFragmentManager, "tag")
         }
@@ -95,7 +98,20 @@ class QueriesFragment : Fragment() {
         //recycler
         val rvQueries: RecyclerView = view.findViewById(R.id.rvQueries)
 
-        queriesAdapter = QueryAdapter(MainActivity.queries, {}, {
+        queriesAdapter = QueryAdapter(MainActivity.queries, { query ->
+            val data = HashMap<String, String>()
+            data["status"] = "2"
+            ApiHandler(requireContext()).sendRequestPut(data, "/queries/${query.idQueries}", {
+                Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
+                val res = "${it.data.first()}".toInt()
+                if(res == 1) {
+                    query.status = 2
+                    queriesAdapter.notifyDataSetChanged()
+                }
+            }, {
+                Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+            })
+        }, {
             val intent:Intent = Intent(requireContext(), AttendActivity::class.java)
             intent.putExtra("idQuery", it.idQueries)
             startActivity(intent)

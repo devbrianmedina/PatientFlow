@@ -27,7 +27,7 @@ class AttendActivity : AppCompatActivity() {
 
         val query:Query? = MainActivity.queries.firstOrNull { it.idQueries == idQuery }
         query ?: finish()
-        var patient: Patient? = MainActivity.patiets.firstOrNull { it.idPatient == query!!.patients_idPatient }
+        val patient: Patient? = MainActivity.patiets.firstOrNull { it.idPatient == query!!.patients_idPatient }
 
         val tvName:TextView = findViewById(R.id.tvNameAttend)
         val tvAge:TextView = findViewById(R.id.tvAgeAttend)
