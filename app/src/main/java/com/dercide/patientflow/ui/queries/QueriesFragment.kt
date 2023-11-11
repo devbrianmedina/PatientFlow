@@ -99,18 +99,20 @@ class QueriesFragment : Fragment() {
         val rvQueries: RecyclerView = view.findViewById(R.id.rvQueries)
 
         queriesAdapter = QueryAdapter(MainActivity.queries, { query ->
-            val data = HashMap<String, String>()
-            data["status"] = "2"
-            ApiHandler(requireContext()).sendRequestPut(data, "/queries/${query.idQueries}", {
-                Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
-                val res = "${it.data.first()}".toInt()
-                if(res == 1) {
-                    query.status = 2
-                    queriesAdapter.notifyDataSetChanged()
-                }
-            }, {
-                Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
-            })
+            if(query.status != 3) {
+                val data = HashMap<String, String>()
+                data["status"] = if(query.status == 2) { "1" } else { "2" }
+                ApiHandler(requireContext()).sendRequestPut(data, "/queries/${query.idQueries}", {
+                    Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
+                    val res = "${it.data.first()}".toInt()
+                    if(res == 1) {
+                        query.status = if(query.status == 2) { 1 } else { 2 }
+                        queriesAdapter.notifyDataSetChanged()
+                    }
+                }, {
+                    Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+                })
+            }
         }, {
             val intent:Intent = Intent(requireContext(), AttendActivity::class.java)
             intent.putExtra("idQuery", it.idQueries)

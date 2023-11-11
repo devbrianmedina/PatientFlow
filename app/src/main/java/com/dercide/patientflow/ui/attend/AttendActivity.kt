@@ -57,29 +57,36 @@ class AttendActivity : AppCompatActivity() {
             val prescription:Prescription? = MainActivity.prescriptions.firstOrNull { it.idPrescription == query.prescription_idprescription }
             tilRecommendations.editText!!.setText(prescription?.observations)
             tilRecommendations.editText!!.isEnabled = false
+            tilRecommendations.editText!!.isFocusable = false
             tilMedicines.editText!!.setText(prescription?.medicines)
             tilMedicines.editText!!.isEnabled = false
-            btnAlta.visibility = View.GONE
+            tilMedicines.editText!!.isFocusable = false
+            btnAlta.text = "Salir"
         }
 
         btnAlta.setOnClickListener {
-            val data = HashMap<String, String>()
-            data["observations"] = tilRecommendations.editText!!.text.toString()
-            data["medicines"] = tilMedicines.editText!!.text.toString()
-            data["query_id"] = "${query.idQueries}"
+            if(query.prescription_idprescription != null) {
+                finish()
+            } else {
+                val data = HashMap<String, String>()
+                data["observations"] = tilRecommendations.editText!!.text.toString()
+                data["medicines"] = tilMedicines.editText!!.text.toString()
+                data["query_id"] = "${query.idQueries}"
 
-            ApiHandler(applicationContext).sendRequestPost(data, "/prescriptions", {
-                Toast.makeText(applicationContext, it.message, Toast.LENGTH_LONG).show()
-                val idPrescription = "${it.data.first()}".toInt()
-                if(idPrescription != -1) { //MainActivity.queries.add(Query(idQuerie, it.data.last().toString(), data["weight"]!!.toDouble(), data["pressure"]!!, data["temperature"]!!.toDouble(), data["currentsurgery"]!!.toBoolean(), data["selfmedication"]!!, data["diseasesandallergies"]!!, 1, null, data["idPatient"]!!.toInt()))
-                    query.status = 3
-                    QueriesFragment.queriesAdapter?.notifyDataSetChanged()
-                    MainActivity.prescriptions.add(Prescription(idPrescription, data["observations"]!!, data["medicines"]!!, SimpleDateFormat("yyyy-MM-dd").format(Date())))
-                    finish()
-                }
-            }, {
-                Toast.makeText(applicationContext, it, Toast.LENGTH_SHORT).show()
-            })
+                ApiHandler(applicationContext).sendRequestPost(data, "/prescriptions", {
+                    Toast.makeText(applicationContext, it.message, Toast.LENGTH_LONG).show()
+                    val idPrescription = "${it.data.first()}".toInt()
+                    if(idPrescription != -1) { //MainActivity.queries.add(Query(idQuerie, it.data.last().toString(), data["weight"]!!.toDouble(), data["pressure"]!!, data["temperature"]!!.toDouble(), data["currentsurgery"]!!.toBoolean(), data["selfmedication"]!!, data["diseasesandallergies"]!!, 1, null, data["idPatient"]!!.toInt()))
+                        query.status = 3
+                        query.prescription_idprescription = idPrescription
+                        QueriesFragment.queriesAdapter?.notifyDataSetChanged()
+                        MainActivity.prescriptions.add(Prescription(idPrescription, data["observations"]!!, data["medicines"]!!, SimpleDateFormat("yyyy-MM-dd").format(Date())))
+                        finish()
+                    }
+                }, {
+                    Toast.makeText(applicationContext, it, Toast.LENGTH_SHORT).show()
+                })
+            }
         }
     }
 

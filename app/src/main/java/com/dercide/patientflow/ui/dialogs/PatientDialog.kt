@@ -84,7 +84,10 @@ class PatientDialog {
                         ApiHandler(context).sendRequestPost(data, "/patients", {
                             Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
                             val idPatient = "${it.data.first()}".toInt()
-                            if(idPatient > 0) MainActivity.patiets.add(Patient(idPatient, data["name"]!!, data["surnames"]!!, data["birthdate"]!!, data["phone"]!!, imageUrl))
+                            if(idPatient > 0) {
+                                MainActivity.patiets.add(Patient(idPatient, data["name"]!!, data["surnames"]!!, data["birthdate"]!!, data["phone"]!!, imageUrl))
+                                callback(true)
+                            }
                         }, {
                             Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
                         })
@@ -100,13 +103,13 @@ class PatientDialog {
                                         return@forEachIndexed
                                     }
                                 }
+                                callback(true)
                             }
                         }, {
                             Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
                         })
                     }
                     //TODO cerrar dialog de load
-                    callback(true)
                 }
                 negativeButton {
                     callback(false)

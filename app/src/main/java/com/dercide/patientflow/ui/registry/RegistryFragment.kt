@@ -42,12 +42,6 @@ class RegistryFragment : Fragment() {
         tvDateTime = view.findViewById(R.id.tvDateTimeRegistry)
         handler.post(updateDateTime)
 
-        val addPatient:Button = view.findViewById(R.id.btnAddPatientRegistry)
-        addPatient.setOnClickListener {
-            PatientDialog.add(requireActivity(), childFragmentManager) {
-            }
-        }
-
         val actvPatient:AutoCompleteTextView = view.findViewById(R.id.actvPatientRegistry)
         val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, MainActivity.patiets.map { "${it.name} ${it.surnames} #${it.idPatient}" }.toList())
         actvPatient.setAdapter(adapter)
@@ -57,6 +51,17 @@ class RegistryFragment : Fragment() {
             idP = selectedItem.split(" ").last().replace("#", "").toInt()
             actvPatient.setText(selectedItem.replaceAfterLast("#", "").replace(" #", ""))
             Toast.makeText(requireContext(), "Paciente #$idP seleccionado", Toast.LENGTH_SHORT).show()
+        }
+
+        val addPatient:Button = view.findViewById(R.id.btnAddPatientRegistry)
+        addPatient.setOnClickListener {
+            PatientDialog.add(requireActivity(), childFragmentManager) {
+                if(it) {
+                    val lPatient = MainActivity.patiets.last()
+                    adapter.add("${lPatient.name} ${lPatient.surnames} #${lPatient.idPatient}")
+                    adapter.notifyDataSetChanged()
+                }
+            }
         }
 
         val tilWeight:TextInputLayout = view.findViewById(R.id.tilWeightRegistry)

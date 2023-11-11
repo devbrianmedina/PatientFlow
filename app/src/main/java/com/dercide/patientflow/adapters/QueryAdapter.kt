@@ -42,7 +42,7 @@ class QueryAdapter(queries:ArrayList<Query>, val onItemEdit: (Query) -> Unit, va
     }
 
     override fun onBindViewHolder(holder: QueryAdapter.QueryViewHolder, position: Int) {
-        var patient:Patient = MainActivity.patiets.first { it.idPatient == queries[position].patients_idPatient }
+        val patient:Patient = MainActivity.patiets.first { it.idPatient == queries[position].patients_idPatient }
         holder.name.text = patient.name
         holder.surnames.text = patient.surnames
         holder.status.text = when(queries[position].status) {
@@ -51,8 +51,18 @@ class QueryAdapter(queries:ArrayList<Query>, val onItemEdit: (Query) -> Unit, va
             3 -> "Atendido"
             else -> "Desconocido"
         }
-        holder.edit.setOnClickListener {
-            onItemEdit(queries[position])
+        if(queries[position].status == 3) {
+            holder.edit.visibility = View.GONE
+        } else {
+            holder.edit.visibility = View.VISIBLE
+            holder.edit.setOnClickListener {
+                onItemEdit(queries[position])
+            }
+        }
+        if(queries[position].status == 2) {
+            holder.edit.setImageResource(R.drawable.ic_return)
+        } else {
+            holder.edit.setImageResource(R.drawable.ic_exit)
         }
         holder.itemView.setOnClickListener {
             onItemClick(queries[position])
