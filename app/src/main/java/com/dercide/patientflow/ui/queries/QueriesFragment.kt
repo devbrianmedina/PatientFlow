@@ -114,9 +114,13 @@ class QueriesFragment : Fragment() {
                 })
             }
         }, {
-            val intent:Intent = Intent(requireContext(), AttendActivity::class.java)
-            intent.putExtra("idQuery", it.idQueries)
-            startActivity(intent)
+            if(it.status == 2) {
+                Toast.makeText(requireContext(), "El paciente abandono.", Toast.LENGTH_SHORT).show()
+            } else {
+                val intent:Intent = Intent(requireContext(), AttendActivity::class.java)
+                intent.putExtra("idQuery", it.idQueries)
+                startActivity(intent)
+            }
         })
         val linearLayoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
