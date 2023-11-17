@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.util.Pair
 import androidx.core.view.setPadding
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.FragmentManager
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.bottomsheets.BottomSheet
@@ -35,6 +36,7 @@ class PatientDialog {
             MaterialDialog(context).show {
                 title(res = if(patient == null) { R.string.add_patient } else { R.string.update_patient } )
                 customView(viewRes = R.layout.add_patient_view, scrollable = true)
+                noAutoDismiss()
                 val root: View = getCustomView()
                 val tilName: TextInputLayout = root.findViewById(R.id.tilNameAddPatient)
                 val tilSurnames: TextInputLayout = root.findViewById(R.id.tilSurnamesAddPatient)
@@ -42,10 +44,36 @@ class PatientDialog {
                 val tilPhone: TextInputLayout = root.findViewById(R.id.tilPhoneAddPatient)
                 var imageUrl: String? = null
 
+                tilName.editText!!.addTextChangedListener {
+                    if(tilName.editText!!.text.length !in 1..50) {
+                        tilName.error = "Ingresa un nombre válido"
+                    } else {
+                        tilName.error = null
+                    }
+                }
+                tilSurnames.editText!!.addTextChangedListener {
+                    if(tilSurnames.editText!!.text.length !in 1..100) {
+                        tilSurnames.error = "Ingresa los apellidos válidos"
+                    } else {
+                        tilSurnames.error = null
+                    }
+                }
+                tilBirthdate.editText!!.addTextChangedListener {
+                    if(tilBirthdate.editText!!.text.isEmpty()) {
+                        tilBirthdate.error = "Introduzca una fecha de nacimiento válida"
+                    } else {
+                        tilBirthdate.error = null
+                    }
+                }
+                tilPhone.editText!!.addTextChangedListener {
+                    if(!Regex("^(?:\\+\\d{1,3})?\\d{6,14}$").matches(tilPhone.editText!!.text)) {
+                        tilPhone.error = "Ingrese un número de teléfono válido"
+                    } else {
+                        tilPhone.error = null
+                    }
+                }
+
                 tilBirthdate.editText!!.setOnClickListener {
-                    /*DateTimeDialog.datePicker(context) {
-                        val dateFormat = SimpleDateFormat("yyyy/MM/dd", Locale.getDefault())
-                    }*/
                     val constraintsBuilderRange = CalendarConstraints.Builder()
                         .setValidator(DateValidatorPointBackward.now());
                     val dateRangePicker =
@@ -79,6 +107,25 @@ class PatientDialog {
                     data["birthdate"] = tilBirthdate.editText!!.text.toString()
                     data["phone"] = tilPhone.editText!!.text.toString()
                     data["photo"] = imageUrl.toString()
+                    var returnBool = false
+                    if(tilName.editText!!.text.length !in 1..50) {
+                        tilName.error = "Ingresa un nombre válido"
+                        returnBool = true
+                    }
+                    if(tilSurnames.editText!!.text.length !in 1..100) {
+                        tilSurnames.error = "Ingresa los apellidos válidos"
+                        returnBool = true
+                    }
+                    if(tilBirthdate.editText!!.text.isEmpty()) {
+                        tilBirthdate.error = "Introduzca una fecha de nacimiento válida"
+                        returnBool = true
+                    }
+                    if(!Regex("^(?:\\+\\d{1,3})?\\d{6,14}$").matches(tilPhone.editText!!.text)) {
+                        tilPhone.error = "Ingrese un número de teléfono válido"
+                        returnBool = true
+                    }
+                    if(returnBool) return@positiveButton
+
                     //TODO abrir dialog de load
                     if(patient == null) { //agregar nuevo paciente
                         ApiHandler(context).sendRequestPost(data, "/patients", {
@@ -110,9 +157,11 @@ class PatientDialog {
                         })
                     }
                     //TODO cerrar dialog de load
+                    dismiss()
                 }
                 negativeButton {
                     callback(false)
+                    dismiss()
                 }
             }
         }

@@ -58,7 +58,9 @@
             android:hint="@string/weight"
             app:endIconMode="custom"
             app:endIconDrawable="@drawable/ic_balance"
-            android:layout_marginBottom="15dp">
+            android:layout_marginBottom="15dp"
+            app:counterEnabled="true"
+            app:counterMaxLength="6">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -79,7 +81,9 @@
                 android:hint="@string/systolic_pressure"
                 app:endIconMode="custom"
                 android:layout_marginEnd="5dp"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                app:counterEnabled="true"
+                app:counterMaxLength="3">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -101,7 +105,9 @@
                 android:hint="@string/diastolic_pressure"
                 app:endIconMode="custom"
                 android:layout_marginStart="5dp"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                app:counterEnabled="true"
+                app:counterMaxLength="3">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -117,7 +123,9 @@
             android:hint="@string/temperature"
             app:endIconMode="custom"
             app:endIconDrawable="@drawable/ic_whatshot"
-            android:layout_marginBottom="15dp">
+            android:layout_marginBottom="15dp"
+            app:counterEnabled="true"
+            app:counterMaxLength="8">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"

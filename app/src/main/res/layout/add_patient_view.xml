@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,7 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/name"
-        android:layout_marginBottom="15dp">
+        android:layout_marginBottom="15dp"
+        app:counterEnabled="true"
+        app:counterMaxLength="50">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -24,7 +27,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/surnames"
-        android:layout_marginBottom="15dp">
+        android:layout_marginBottom="15dp"
+        app:counterEnabled="true"
+        app:counterMaxLength="100">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -52,7 +57,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/phone_number"
-        android:layout_marginBottom="15dp">
+        android:layout_marginBottom="15dp"
+        app:counterEnabled="true"
+        app:counterMaxLength="14">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -61,6 +68,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.cardview.widget.CardView
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <LinearLayout
