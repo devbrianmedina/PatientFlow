@@ -22,7 +22,6 @@ class DataControllerUtil {
             },
                 {
                     Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
-                    //on error
                 })
         }
 
@@ -37,7 +36,6 @@ class DataControllerUtil {
             },
                 {
                     Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
-                    //on error
                 })
         }
 
@@ -51,7 +49,6 @@ class DataControllerUtil {
             },
                 {
                     Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
-                    //on error
                 })
         }
     }

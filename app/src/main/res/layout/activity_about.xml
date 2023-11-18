@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.about.AboutActivity"
+    android:padding="16dp">
+    <ImageView
+        android:id="@+id/imageViewProfile"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/me"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"/>
+
+    <TextView
+        android:id="@+id/textViewName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Brian Medina Sánchez"
+        android:textSize="22sp"
+        android:layout_below="@id/imageViewProfile"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"/>
+
+    <TextView
+        android:id="@+id/textViewBio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Soy un desarrollador freelance con amplia experiencia, especializado en la creación y venta de páginas web, aplicaciones y servidores de juegos. Mi dominio incluye diversos lenguajes como C++, PHP, JavaScript, Java, Kotlin, Golang, Python, así como SQL y SQLite, junto con el uso de diversos frameworks. Mi trayectoria refleja versatilidad y éxito en proyectos variados."
+        android:layout_below="@id/textViewName"
+        android:layout_centerHorizontal="true"
+        android:textSize="18sp"
+        android:layout_marginTop="8dp"/>
+
+    <TextView
+        android:id="@+id/textViewLinks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Encuéntrame en:"
+        android:textSize="16sp"
+        android:layout_below="@id/textViewBio"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"/>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutSocialMedia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewLinks"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp">
+
+        <!-- Enlace a GitHub -->
+        <ImageView
+            android:id="@+id/imageViewGitHub"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/github_icon"
+            android:layout_marginEnd="16dp"/>
+
+        <!-- Enlace a tu web personal -->
+        <ImageView
+            android:id="@+id/imageViewPersonalWeb"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/web_icon"
+            android:layout_marginEnd="16dp"/>
+
+        <!-- Enlace a la web de tu empresa de desarrollo -->
+        <ImageView
+            android:id="@+id/imageViewCompanyWeb"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/web_icon"
+            />
+
+    </LinearLayout>
+</RelativeLayout>

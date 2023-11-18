@@ -29,8 +29,6 @@ class ApiHandler(context: Context) {
                 error(responseError)
             }
         )
-
-        // Add the request to the RequestQueue.
         queue.add(stringRequest)
     }
 
@@ -53,8 +51,6 @@ class ApiHandler(context: Context) {
                 return data
             }
         }
-
-        // Add the request to the RequestQueue.
         queue.add(stringRequest)
     }
 
@@ -76,8 +72,6 @@ class ApiHandler(context: Context) {
                 return data
             }
         }
-
-        // Add the request to the RequestQueue.
         queue.add(stringRequest)
     }
 }

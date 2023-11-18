@@ -34,4 +34,6 @@
     <string name="update_patient">Actualizar paciente</string>
     <string name="recommendations">Recomendaciones</string>
     <string name="medicines">Medicamentos</string>
+    <string name="action_about">Acerca de mí</string>
+    <string name="treat_patient">Atender paciente</string>
 </resources>

@@ -1,7 +1,9 @@
 package com.dercide.patientflow
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
@@ -16,6 +18,7 @@ import com.dercide.patientflow.databinding.ActivityMainBinding
 import com.dercide.patientflow.models.Patient
 import com.dercide.patientflow.models.Prescription
 import com.dercide.patientflow.models.Query
+import com.dercide.patientflow.ui.about.AboutActivity
 import com.dercide.patientflow.utils.DataControllerUtil
 
 class MainActivity : AppCompatActivity() {
@@ -58,7 +61,20 @@ class MainActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.main, menu)
+
         return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle item selection
+        when (item.itemId) {
+            R.id.action_about -> {
+                val intent = Intent(this, AboutActivity::class.java)
+                startActivity(intent)
+                return true
+            }
+            else -> return super.onOptionsItemSelected(item)
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {

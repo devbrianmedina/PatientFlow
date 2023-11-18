@@ -17,6 +17,11 @@
         android:theme="@style/Theme.PatientFlow"
         tools:targetApi="31">
         <activity
+            android:label="@string/action_about"
+            android:name=".ui.about.AboutActivity"
+            android:exported="false" />
+        <activity
+            android:label="@string/treat_patient"
             android:name=".ui.attend.AttendActivity"
             android:exported="false" />
         <activity
